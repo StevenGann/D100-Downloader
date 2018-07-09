@@ -10,44 +10,17 @@ namespace D100Downloader
     {
         static void Main(string[] args)
         {
-            if (args.Length > 1)
-            {
-                for (int i = 0; i < args.Length; i++)
-                {
-                    //Console.WriteLine(args[i]);
-                    string html = DndSpeakClient.DownloadHtml(args[i]);
-                    string title = DndSpeakClient.MakeValidFileName(DndSpeakClient.ExtractTitle(html));
-                    List<string> items = DndSpeakClient.ExtractList(html);
-                    string tsv = DndSpeakClient.ListToTsv(items);
-                    Console.WriteLine(title);
-                    DndSpeakClient.StringToFile(tsv, title + ".tsv");
-                }
-
-                Console.WriteLine("Exporting complete!");
-            }
-            else
-            {
-                //Console.WriteLine("Usage:");
-                //Console.WriteLine("D100Downloader.exe \"url1\" \"url2\" \"url3\"... ");
-                //Console.WriteLine();
-                while(true)
-                {
-                    Console.WriteLine("\nPlease enter a valid dndspeak.com URL.");
-                    Console.Write("URL: ");
-                    string url = Console.ReadLine();
-                    //Console.WriteLine(args[i]);
-                    try
-                    {
-                        string html = DndSpeakClient.DownloadHtml(url);
-                        string title = DndSpeakClient.MakeValidFileName(DndSpeakClient.ExtractTitle(html));
-                        List<string> items = DndSpeakClient.ExtractList(html);
-                        string tsv = DndSpeakClient.ListToTsv(items);
-                        Console.WriteLine(title);
-                        DndSpeakClient.StringToFile(tsv, title + ".tsv");
-                    }
-                    catch { }
-                }
-            }
+            string template = System.IO.File.ReadAllText(@"template.html");
+            string html = DndSpeakClient.DownloadHtml(@"http://dndspeak.com/2018/06/100-royal-family-drama/");
+            string title = DndSpeakClient.ExtractTitle(html);
+            string subtitle = DndSpeakClient.ExtractSubtitle(html);
+            List<string> items = DndSpeakClient.ExtractList(html);
+            string tsv = DndSpeakClient.ListToTsv(items, title, subtitle);
+            string newhtml = DndSpeakClient.ListToHtml(items, title, subtitle, template);
+            Console.WriteLine(title);
+            Console.WriteLine(subtitle);
+            DndSpeakClient.StringToFile(tsv, DndSpeakClient.MakeValidFileName(title) + ".tsv");
+            DndSpeakClient.StringToFile(newhtml, DndSpeakClient.MakeValidFileName(title) + ".html");
         }
     }
 }
