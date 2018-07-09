@@ -28,7 +28,7 @@ namespace D100Downloader
             else
             {
                 Console.WriteLine("Usage:");
-                Console.WriteLine("DndSpeakDownloader.exe \"url1\" \"url2\" \"url3\"... ");
+                Console.WriteLine("D100Downloader.exe \"url1\" \"url2\" \"url3\"... ");
                 Console.WriteLine();
             }
         }
