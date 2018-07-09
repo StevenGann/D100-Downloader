@@ -27,9 +27,26 @@ namespace D100Downloader
             }
             else
             {
-                Console.WriteLine("Usage:");
-                Console.WriteLine("D100Downloader.exe \"url1\" \"url2\" \"url3\"... ");
-                Console.WriteLine();
+                //Console.WriteLine("Usage:");
+                //Console.WriteLine("D100Downloader.exe \"url1\" \"url2\" \"url3\"... ");
+                //Console.WriteLine();
+                while(true)
+                {
+                    Console.WriteLine("\nPlease enter a valid dndspeak.com URL.");
+                    Console.Write("URL: ");
+                    string url = Console.ReadLine();
+                    //Console.WriteLine(args[i]);
+                    try
+                    {
+                        string html = DndSpeakClient.DownloadHtml(url);
+                        string title = DndSpeakClient.MakeValidFileName(DndSpeakClient.ExtractTitle(html));
+                        List<string> items = DndSpeakClient.ExtractList(html);
+                        string tsv = DndSpeakClient.ListToTsv(items);
+                        Console.WriteLine(title);
+                        DndSpeakClient.StringToFile(tsv, title + ".tsv");
+                    }
+                    catch { }
+                }
             }
         }
     }
