@@ -22,26 +22,38 @@
 				font-size: 1em;
 				margin: 5em 5em 5em 5em;
 			}
-
 			h1{
 				font-family: Palatino, "Palatino LT STD", "Palatino Linotype", "Book Antiqua", Georgia, serif;
 				font-weight: bold;
 				font-size: 2em;
 			}
-
 			h2{
 				font-family: Palatino, "Palatino LT STD", "Palatino Linotype", "Book Antiqua", Georgia, serif;
 				font-size: 1.5em;
 				color: grey;
 				font-style: italic;
 			}
-
 			ol{
 				
 			}
-
 			li{
 				margin: 1em 0;
+			}
+			td{
+				border: 1px solid grey;
+				padding: 0.5em 1em 0.5em 1em;
+			}
+
+			.item-index{
+				font-family: "Century Gothic", CenturyGothic, Geneva, AppleGothic, sans-serif;
+				text-align: center; 
+				vertical-align: middle;
+				font-weight: bold;
+			}
+
+			.source-link{
+				color: grey;
+				font-style: italic;
 			}
 
 			@media print{
@@ -54,6 +66,9 @@
 			h2{
 				font-size: 1em;
 			}
+			tr{
+				page-break-inside: avoid;
+			}
 			}
 		</style>
 
@@ -62,12 +77,19 @@
 	<h1><!--####TITLE####--></h1>
 	<h2><!--####SUBTITLE####--></h2>
 
-		<ol>
-		<!-- Everything between the "START LIST" and "END LIST" comments will be copied for every list item and placed here.-->
-        <!--####START LIST####-->
-			<hr>
-			<li><!--####LIST ITEM####--></li>
-		<!--####END LIST####-->
-		</ol>
+		<div>
+			<table>
+			<!-- Everything between the "START LIST" and "END LIST" comments will be copied for every list item and placed here.-->
+			<!--####START LIST####-->
+				<tr>
+				<td class="item-index"><!--####INDEX####--></td>
+				<td><!--####LIST ITEM####--></td>
+				</tr>
+			<!--####END LIST####-->
+			</table>
+		</div>
+		<br>
+		<hr>
+		<div class="source-link">Downloaded from <a href="<!--####SOURCE####-->"><!--####SOURCE####--></a></div>
     </body>
 </html>
